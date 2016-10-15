@@ -181,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                     jsonResponse = readFromStream(inputStream);
                 }
 
-
             } catch (IOException e) {
                 // TODO: Handle the exception
 
@@ -208,11 +207,11 @@ public class MainActivity extends AppCompatActivity {
             StringBuilder output = new StringBuilder();
             if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-                BufferedReader reader = new BufferedReader(inputStreamReader);
+                BufferedReader reader = new BufferedReader(inputStreamReader); //reads more then one character at a time of the input stream reader so that if we request more data we get it
                 String line = reader.readLine();
-                while (line != null) {
+                while (line != null) { //While loop, will continue to run until there in no more strings to be added to the string builder
                     output.append(line);
-                    line = reader.readLine();
+                    line = reader.readLine(); //it will continue to check to see if the line is null or not and if it is, it exits the while loop
                 }
             }
             return output.toString();
