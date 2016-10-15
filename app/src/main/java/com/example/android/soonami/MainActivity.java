@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                 return jsonResponse;
             }
 
+            //we reference these variables outside the try block because we need to access it from other areas as well, such as the finally block
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
 
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 //check to see if the response code is successful
                 if (urlConnection.getResponseCode() == 200) {
                     inputStream = urlConnection.getInputStream();
-                    jsonResponse = readFromStream(inputStream);
+                    jsonResponse = readFromStream(inputStream); // must place inside a try block becsue the readFromStream method has a throws exception
                 }
 
             } catch (IOException e) {
