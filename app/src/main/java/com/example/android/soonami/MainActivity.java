@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Make an HTTP request to the given URL and return a String as the response.
          */
-        private String makeHttpRequest(URL url) throws IOException {
+        private String makeHttpRequest(URL url) throws IOException { // note that whoever calls this method must create a try catch block as well
             String jsonResponse = "";
 
             if (url == null) {
@@ -180,10 +180,15 @@ public class MainActivity extends AppCompatActivity {
                 if (urlConnection.getResponseCode() == 200) {
                     inputStream = urlConnection.getInputStream();
                     jsonResponse = readFromStream(inputStream); // must place inside a try block becsue the readFromStream method has a throws exception
+                } else { //if its not 200 response code
+                    Log.e(LOG_TAG + " makeHttpRequest method", "The response code is " + urlConnection.getResponseCode());
                 }
 
             } catch (IOException e) {
                 // TODO: Handle the exception
+
+                Log.e(LOG_TAG, "Problem connecting to the url", e);
+
 
                 //finally block executes even if unexpected error occurs
             } finally {
@@ -224,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
          */
         private Event extractFeatureFromJson(String earthquakeJSON) {
             //check to see if the json String is empty  or null, then return early
-            if(TextUtils.isEmpty(earthquakeJSON)){
+            if (TextUtils.isEmpty(earthquakeJSON)) {
                 return null;
             }
 
