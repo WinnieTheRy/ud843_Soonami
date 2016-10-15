@@ -187,9 +187,11 @@ public class MainActivity extends AppCompatActivity {
 
                 //finally block executes even if unexpected error occurs
             } finally {
+                //disconnectns when try block is done its code
                 if (urlConnection != null) {
                     urlConnection.disconnect();
                 }
+                //closes input stream when try block is done
                 if (inputStream != null) {
                     // function must handle java.io.IOException here
                     inputStream.close();
